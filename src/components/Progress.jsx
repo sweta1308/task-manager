@@ -1,4 +1,5 @@
 import { useStatus } from "../context/statusContext";
+import { AddTask } from "./AddTaskBtn";
 import { TaskCard } from "./TaskCard";
 
 export const Progress = () => {
@@ -17,6 +18,8 @@ export const Progress = () => {
           <TaskCard task={progress} />
         </div>
       ))}
+
+      <AddTask />
     </div>
   );
 };

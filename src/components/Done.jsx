@@ -1,4 +1,5 @@
 import { useStatus } from "../context/statusContext";
+import { AddTask } from "./AddTaskBtn";
 import { TaskCard } from "./TaskCard";
 
 export const Done = () => {
@@ -17,6 +18,8 @@ export const Done = () => {
           <TaskCard task={done} />
         </div>
       ))}
+
+      <AddTask />
     </div>
   );
 };
