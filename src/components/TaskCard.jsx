@@ -2,7 +2,7 @@ export const TaskCard = ({ task }) => {
   const { name, priority, assignee, startDate, type } = task;
   return (
     <>
-      <div className="bg-white w-[350px] my-[20px] py-[15px] px-[30px] text-left rounded-md shadow-md">
+      <div className="bg-white w-[350px] my-[20px] py-[15px] px-[30px] text-left rounded-md shadow-md cursor-grab">
         <div className="flex justify-between">
           <h2 className="font-bold">{name}</h2>
           <div>
