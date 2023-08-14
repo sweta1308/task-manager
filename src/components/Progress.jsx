@@ -8,9 +8,9 @@ export const Progress = () => {
     <Droppable droppableId="ProgressTasks">
       {(provided, snapshot) => (
         <div
-          className={`w-[350px] ${
-            snapshot.isDraggingOver ? "bg-gray-300" : ""
-          } rounded-md`}
+          className={`w-[350px] xs:w-[300px] ${
+            snapshot.isDraggingOver ? "bg-gray-300 dark:bg-dark-light" : ""
+          } rounded-md pb-[40px]`}
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
@@ -20,6 +20,8 @@ export const Progress = () => {
               ({statusProgress?.length})
             </span>
           </h2>
+
+          {statusProgress?.length === 0 && <h1 className="font-bold text-[20px] mt-[20px]">No tasks added.</h1>}
 
           {statusProgress?.map((progress, index) => (
             <div key={progress?.id}>
