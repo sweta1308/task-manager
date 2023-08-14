@@ -8,9 +8,11 @@ export const TaskProvider = ({ children }) => {
   const [searchInput, setSearchInput] = useState("");
   const [selectedType, setSelectedType] = useState("name");
   const [priority, setPriority] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const getTask = async () => {
     try {
+      setIsLoading(true);
       const { data, status } = await axios.get(
         "https://gcp-mock.apiwiz.io/v1/tasks",
         {
@@ -19,6 +21,7 @@ export const TaskProvider = ({ children }) => {
       );
       if (status === 200) {
         setTasks(data);
+        setIsLoading(false);
       }
     } catch (e) {
       console.error(e);
@@ -65,6 +68,7 @@ export const TaskProvider = ({ children }) => {
         setSelectedType,
         priority,
         setPriority,
+        isLoading,
       }}
     >
       {children}
