@@ -1,1 +1,16 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css");
+
+::-webkit-scrollbar {
+  width: 0.6em;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 100vw;
+  margin-block: 0.25em;
+  background: #9ff2d8;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #10b981;
+  border-radius: 100vw;
+}
