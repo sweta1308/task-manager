@@ -5,6 +5,9 @@ const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [selectedType, setSelectedType] = useState("name");
+  const [priority, setPriority] = useState("");
 
   const getTask = async () => {
     try {
@@ -22,12 +25,50 @@ export const TaskProvider = ({ children }) => {
     }
   };
 
+  let filteredTask = tasks;
+
+  if (selectedType === "name") {
+    filteredTask = filteredTask?.filter((data) =>
+      data?.name
+        ?.trim()
+        ?.toLowerCase()
+        ?.includes(searchInput?.trim()?.toLowerCase())
+    );
+  } else if (selectedType === "assignee") {
+    filteredTask = filteredTask?.filter((data) =>
+      data?.assignee
+        ?.trim()
+        ?.toLowerCase()
+        ?.includes(searchInput?.trim()?.toLowerCase())
+    );
+  }
+
+  if (priority === "High") {
+    filteredTask = filteredTask?.filter((task) => task?.priority === "High");
+  } else if (priority === "Medium") {
+    filteredTask = filteredTask?.filter((task) => task?.priority === "Medium");
+  } else if (priority === "Low") {
+    filteredTask = filteredTask?.filter((task) => task?.priority === "Low");
+  }
+
   useEffect(() => {
     getTask();
   }, []);
 
   return (
-    <TaskContext.Provider value={{ tasks }}>{children}</TaskContext.Provider>
+    <TaskContext.Provider
+      value={{
+        searchInput,
+        setSearchInput,
+        filteredTask,
+        selectedType,
+        setSelectedType,
+        priority,
+        setPriority,
+      }}
+    >
+      {children}
+    </TaskContext.Provider>
   );
 };
 
