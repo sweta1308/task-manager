@@ -11,11 +11,11 @@ export const Options = () => {
   } = useTask();
   return (
     <>
-      <div className="flex justify-between py-[20px] md:flex-col md:items-center md:gap-3">
+      <div className="flex justify-between py-[20px] md:flex-col md:items-start md:gap-3 sm:pl-[30px]">
         <div className="flex items-center xs:text-[12px] xs:flex-col">
           <input
             placeholder={`Search by ${selectedType}`}
-            className="p-[10px] mr-[10px] outline-none"
+            className="p-[10px] mr-[10px] outline-none dark:bg-dark-mode"
             value={searchInput}
             onChange={(e) => {
               setSearchInput(e.target.value);
@@ -49,12 +49,12 @@ export const Options = () => {
 
         <div className="flex text-[14px] border-2 border-gray-300 rounded-sm font-semibold md:w-fit">
           <p className="p-[10px]">Ungrouped</p>
-          <p className="p-[10px] bg-white">Users</p>
+          <p className="p-[10px] bg-white dark:bg-dark-mode">Users</p>
         </div>
 
         <div className="flex md:flex-col md:w-fit">
           <select
-            className="px-[10px] md:py-[10px]"
+            className="px-[10px] md:py-[10px] cursor-pointer dark:bg-dark-mode"
             value={priority}
             onChange={(e) => setPriority(e.target.value)}
           >
