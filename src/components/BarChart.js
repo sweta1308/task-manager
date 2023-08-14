@@ -9,10 +9,28 @@ export const BarChart = () => {
     useStatus();
   return (
     <>
-      <h1 className="text-2xl font-bold my-[30px] underline">
+      <h1 className="text-2xl font-bold my-[30px] underline xs:text-lg">
         Task Metrics based on Task Status
       </h1>
-      <div>
+      <div className="flex flex-wrap">
+        <div className="flex items-center mx-[7px]">
+          <div className="w-[20px] h-[10px] bg-blue-300 mr-[5px]"></div> All
+          Tasks
+        </div>
+        <div className="flex items-center mx-[7px]">
+          <div className="w-[20px] h-[10px] bg-red-400 mr-[5px]"></div> High
+          priority Tasks
+        </div>
+        <div className="flex items-center mx-[7px]">
+          <div className="w-[20px] h-[10px] bg-orange-300 mr-[5px]"></div>{" "}
+          Medium Priority Tasks
+        </div>
+        <div className="flex items-center mx-[7px]">
+          <div className="w-[20px] h-[10px] bg-green-400 mr-[5px]"></div> Least
+          Priority Tasks
+        </div>
+      </div>
+      <div className="mt-[20px]">
         <Bar
           data={{
             labels: ["Ready", "In Progress", "Testing", "Done"],
