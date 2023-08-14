@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
+  darkMode: "class",
   theme: {
     screens: {
       "2xl": { max: "1500px" },
@@ -19,7 +20,12 @@ module.exports = {
       // => @media (max-width: 639px) { ... }
       xs: { max: "470px" },
     },
-    extend: {},
+    extend: {
+      colors: {
+        "dark-mode": "#1A202C",
+        "dark-light": "#262c3c",
+      },
+    },
   },
   plugins: [],
 };
