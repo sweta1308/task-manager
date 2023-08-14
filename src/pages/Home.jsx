@@ -1,4 +1,5 @@
 import { DragDropContext } from "react-beautiful-dnd";
+import { ClipLoader } from "react-spinners";
 import { Done } from "../components/Done";
 import { Header } from "../components/Header";
 import { Links } from "../components/Links";
@@ -20,14 +21,10 @@ export const Home = () => {
           <Header />
           <Links />
         </div>
-        <div className="bg-gray-200 px-[40px] pb-[50px] sm:px-[10px] dark:bg-dark-light">
+        <div className="bg-gray-200 px-[40px] pb-[50px] text-center sm:px-[10px] dark:bg-dark-light">
           <Options />
           {isLoading ? (
-            <img
-              className="w-[70px] m-auto mt-[50px]"
-              src="https://raw.githubusercontent.com/n3r4zzurr0/svg-spinners/abfa05c49acf005b8b1e0ef8eb25a67a7057eb20/svg-css/eclipse.svg"
-              alt="spinner"
-            />
+            <ClipLoader size={80} color="#10b981" />
           ) : (
             <DragDropContext onDragEnd={onDragEnd}>
               <div className="flex w-full justify-between flex-wrap md:justify-center">
