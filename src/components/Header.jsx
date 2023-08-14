@@ -1,4 +1,7 @@
+import { useTheme } from "../context/themeContext";
+
 export const Header = () => {
+  const { isDark, setIsDark } = useTheme();
   return (
     <>
       <div className="flex items-center sm:flex-col sm:items-start">
@@ -22,6 +25,17 @@ export const Header = () => {
           <i className="fa-solid fa-gear text-gray-400 self-start mt-[8px] mx-[15px]"></i>
           <i className="fa-regular fa-bell text-[#10b981] self-start mt-[8px] mr-[15px]"></i>
           <i className="fa-solid fa-ellipsis text-gray-400 self-start mt-[8px] mr-[15px]"></i>
+          {isDark ? (
+            <i
+              onClick={() => setIsDark((prev) => !prev)}
+              className="fa-solid fa-sun fa-lg cursor-pointer mt-[15px]"
+            ></i>
+          ) : (
+            <i
+              onClick={() => setIsDark((prev) => !prev)}
+              className="fa-solid fa-moon fa-lg cursor-pointer mt-[15px]"
+            ></i>
+          )}
         </div>
       </div>
     </>
