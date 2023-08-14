@@ -7,11 +7,13 @@ import { StatusProvider } from "./context/statusContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <TaskProvider>
-      <StatusProvider>
-        <App />
-      </StatusProvider>
-    </TaskProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+
+  <TaskProvider>
+    <StatusProvider>
+      <App />
+    </StatusProvider>
+  </TaskProvider>
+
+  // </React.StrictMode>
 );
