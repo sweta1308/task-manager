@@ -9,6 +9,7 @@ export const TaskProvider = ({ children }) => {
   const [selectedType, setSelectedType] = useState("name");
   const [priority, setPriority] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedTime, setSelectedTime] = useState("");
 
   const getTask = async () => {
     try {
@@ -54,6 +55,12 @@ export const TaskProvider = ({ children }) => {
     filteredTask = filteredTask?.filter((task) => task?.priority === "Low");
   }
 
+  if (selectedTime) {
+    filteredTask = filteredTask?.filter(
+      (task) => task?.startDate === selectedTime
+    );
+  }
+
   useEffect(() => {
     getTask();
   }, []);
@@ -69,6 +76,8 @@ export const TaskProvider = ({ children }) => {
         priority,
         setPriority,
         isLoading,
+        selectedTime,
+        setSelectedTime,
       }}
     >
       {children}

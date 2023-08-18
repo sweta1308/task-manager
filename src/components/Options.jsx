@@ -8,7 +8,10 @@ export const Options = () => {
     setSelectedType,
     priority,
     setPriority,
+    selectedTime,
+    setSelectedTime,
   } = useTask();
+  console.log(selectedTime)
   return (
     <>
       <div className="flex justify-between py-[20px] md:flex-col md:items-start md:gap-3 sm:pl-[30px]">
@@ -46,6 +49,13 @@ export const Options = () => {
             </label>
           </div>
         </div>
+
+        <input
+          type="date"
+          value={selectedTime}
+          onChange={(e) => setSelectedTime(e.target.value)}
+          className="p-[10px] mr-[10px] text-white outline-none dark:bg-dark-mode"
+        />
 
         <div className="flex text-[14px] border-2 border-gray-300 rounded-sm font-semibold md:w-fit">
           <p className="p-[10px]">Ungrouped</p>
