@@ -1,5 +1,5 @@
 import { DragDropContext } from "react-beautiful-dnd";
-import { ClipLoader } from "react-spinners";
+import { ScaleLoader } from "react-spinners";
 import { Done } from "../components/Done";
 import { Header } from "../components/Header";
 import { Links } from "../components/Links";
@@ -24,7 +24,7 @@ export const Home = () => {
         <div className="bg-gray-200 px-[40px] pb-[50px] text-center sm:px-[10px] dark:bg-dark-light">
           <Options />
           {isLoading ? (
-            <ClipLoader size={80} color="#10b981" />
+            <ScaleLoader size={30} color="#10b981" />
           ) : (
             <DragDropContext onDragEnd={onDragEnd}>
               <div className="flex w-full justify-between flex-wrap md:justify-center">
