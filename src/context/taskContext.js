@@ -5,20 +5,19 @@ const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
-  const [selectedType, setSelectedType] = useState("name");
-  const [priority, setPriority] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedTime, setSelectedTime] = useState("");
+  const [filters, setFilters] = useState({
+    searchInput: "",
+    priority: "",
+    selectedTime: "",
+  });
+  const { searchInput, priority, selectedTime } = filters;
 
   const getTask = async () => {
     try {
       setIsLoading(true);
       const { data, status } = await axios.get(
-        "https://gcp-mock.apiwiz.io/v1/tasks",
-        {
-          headers: { "x-tenant": "b4349714-47c7-4605-a81c-df509fc7e653" },
-        }
+        "https://task-manager-nodejs-restapi.onrender.com/tasks"
       );
       if (status === 200) {
         setTasks(data);
@@ -29,23 +28,63 @@ export const TaskProvider = ({ children }) => {
     }
   };
 
+  const addTask = async (taskData) => {
+    try {
+      const response = await axios.post(
+        "https://task-manager-nodejs-restapi.onrender.com/tasks",
+        taskData
+      );
+      if (response.status === 200) {
+        setTasks([...tasks, taskData]);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const updateTask = async (taskId, updatedData) => {
+    try {
+      const { data, status } = await axios.post(
+        `https://task-manager-nodejs-restapi.onrender.com/tasks/${taskId}`,
+        updatedData
+      );
+      if (status === 200) {
+        console.log(data.task);
+        setTasks((tasks) =>
+          tasks.map((task) => (task._id === data.task._id ? data.task : task))
+        );
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const deleteTask = async (taskId) => {
+    try {
+      const response = await axios.delete(
+        `https://task-manager-nodejs-restapi.onrender.com/tasks/${taskId}`
+      );
+      if (response.status === 200) {
+        setTasks((tasks) => tasks.filter((task) => task._id !== taskId));
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   let filteredTask = tasks;
 
-  if (selectedType === "name") {
-    filteredTask = filteredTask?.filter((data) =>
+  filteredTask = filteredTask?.filter(
+    (data) =>
       data?.name
         ?.trim()
         ?.toLowerCase()
-        ?.includes(searchInput?.trim()?.toLowerCase())
-    );
-  } else if (selectedType === "assignee") {
-    filteredTask = filteredTask?.filter((data) =>
+        ?.includes(searchInput?.trim()?.toLowerCase()) ||
       data?.assignee
         ?.trim()
         ?.toLowerCase()
         ?.includes(searchInput?.trim()?.toLowerCase())
-    );
-  }
+  );
 
   if (priority === "High") {
     filteredTask = filteredTask?.filter((task) => task?.priority === "High");
@@ -57,7 +96,8 @@ export const TaskProvider = ({ children }) => {
 
   if (selectedTime) {
     filteredTask = filteredTask?.filter(
-      (task) => task?.startDate === selectedTime
+      (task) =>
+        task?.startDate === selectedTime || task?.endDate === selectedTime
     );
   }
 
@@ -68,16 +108,13 @@ export const TaskProvider = ({ children }) => {
   return (
     <TaskContext.Provider
       value={{
-        searchInput,
-        setSearchInput,
         filteredTask,
-        selectedType,
-        setSelectedType,
-        priority,
-        setPriority,
         isLoading,
-        selectedTime,
-        setSelectedTime,
+        addTask,
+        updateTask,
+        deleteTask,
+        filters,
+        setFilters,
       }}
     >
       {children}
