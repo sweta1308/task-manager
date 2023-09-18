@@ -5,7 +5,7 @@ import { TaskCard } from "./TaskCard";
 export const Testing = () => {
   const { statusTesting } = useStatus();
   return (
-    <Droppable droppableId="TestingTasks">
+    <Droppable droppableId="Testing">
       {(provided, snapshot) => (
         <div
           className={`w-[350px] xs:w-[300px] ${

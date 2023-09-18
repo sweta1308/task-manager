@@ -5,7 +5,7 @@ import { TaskCard } from "./TaskCard";
 export const Progress = () => {
   const { statusProgress } = useStatus();
   return (
-    <Droppable droppableId="ProgressTasks">
+    <Droppable droppableId="In Progress">
       {(provided, snapshot) => (
         <div
           className={`w-[350px] xs:w-[300px] ${
