@@ -1,72 +1,38 @@
+import { Add } from "@mui/icons-material";
 import { useTask } from "../context/taskContext";
+import { useState } from "react";
+import { Modal } from "@mui/material";
+import { TaskModal } from "./TaskModal";
 
 export const Options = () => {
-  const {
-    searchInput,
-    setSearchInput,
-    selectedType,
-    setSelectedType,
-    priority,
-    setPriority,
-    selectedTime,
-    setSelectedTime,
-  } = useTask();
-  console.log(selectedTime)
+  const { filters, setFilters } = useTask();
+  const { selectedTime, priority } = filters;
+  const [showTaskModal, setShowTaskModal] = useState(false);
   return (
     <>
-      <div className="flex justify-between py-[20px] md:flex-col md:items-start md:gap-3 sm:pl-[30px]">
-        <div className="flex items-center xs:text-[12px] xs:flex-col">
-          <input
-            placeholder={`Search by ${selectedType}`}
-            className="p-[10px] mr-[10px] outline-none dark:bg-dark-mode"
-            value={searchInput}
-            onChange={(e) => {
-              setSearchInput(e.target.value);
-            }}
-          />
-          <div className="xs:mt-[10px]">
-            <label for="name">
-              <input
-                id="name"
-                type="radio"
-                name="type"
-                value="name"
-                checked={selectedType === "name"}
-                onChange={(e) => setSelectedType(e.target.value)}
-              />{" "}
-              Name
-            </label>
-            <label for="assignee" className="m-[10px]">
-              <input
-                id="assignee"
-                type="radio"
-                name="type"
-                value="assignee"
-                checked={selectedType === "assignee"}
-                onChange={(e) => setSelectedType(e.target.value)}
-              />{" "}
-              Assignee
-            </label>
-          </div>
-        </div>
-
+      <div className="flex justify-end py-[20px] xs:flex-col">
+        <button
+          onClick={() => setShowTaskModal(true)}
+          className="bg-[#33a37e] text-white mr-[15px] px-[18px] rounded-md cursor-pointer hover:bg-[#23775b] xs:my-[15px] xs:py-[10px] xs:mr-[0]"
+        >
+          <Add /> Add Task
+        </button>
         <input
           type="date"
           value={selectedTime}
-          onChange={(e) => setSelectedTime(e.target.value)}
-          className="p-[10px] mr-[10px] text-white outline-none dark:bg-dark-mode"
+          onChange={(e) =>
+            setFilters({ ...filters, selectedTime: e.target.value })
+          }
+          className="py-[5px] px-[10px] mr-[10px] outline-none dark:bg-dark-mode xs:my-[10px] xs:mr-0 xs:py-[8px]"
         />
 
-        <div className="flex text-[14px] border-2 border-gray-300 rounded-sm font-semibold md:w-fit">
-          <p className="p-[10px]">Ungrouped</p>
-          <p className="p-[10px] bg-white dark:bg-dark-mode">Users</p>
-        </div>
-
-        <div className="flex md:flex-col md:w-fit">
+        <div className="flex md:flex-col md:w-fit text-[14px]">
           <select
-            className="px-[10px] md:py-[10px] cursor-pointer dark:bg-dark-mode"
+            className="px-[10px] md:py-[10px] cursor-pointer dark:bg-dark-mode xs:w-full"
             value={priority}
-            onChange={(e) => setPriority(e.target.value)}
+            onChange={(e) =>
+              setFilters({ ...filters, priority: e.target.value })
+            }
           >
             <option value="">Select for Priority</option>
             <option value="High">High</option>
@@ -75,6 +41,9 @@ export const Options = () => {
           </select>
         </div>
       </div>
+      <Modal open={showTaskModal} onClose={() => setShowTaskModal(false)}>
+        <TaskModal setShowModal={setShowTaskModal} />
+      </Modal>
     </>
   );
 };
