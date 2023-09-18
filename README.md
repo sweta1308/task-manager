@@ -12,3 +12,5 @@ A task manager app with drag and drop functionality.
 * Context API
 * React Router
 * Tailwind CSS
+* Mui Icons
+* Mui Modal
