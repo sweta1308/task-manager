@@ -1,10 +1,26 @@
+import { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
+import { Delete, EditNote, Event, HourglassBottom } from "@mui/icons-material";
+import { useTask } from "../context/taskContext";
+import { Modal } from "@mui/material";
+import { TaskModal } from "./TaskModal";
 
 export const TaskCard = ({ task, index }) => {
-  const { id, name, priority, assignee, startDate, type } = task;
+  const {
+    _id,
+    name,
+    summary,
+    priority,
+    assignee,
+    startDate,
+    endDate,
+    taskType,
+  } = task;
+  const { deleteTask } = useTask();
+  const [showModal, setShowModal] = useState(false);
   return (
     <>
-      <Draggable draggableId={id.toString()} index={index}>
+      <Draggable draggableId={_id} index={index}>
         {(provided, snapshot) => (
           <div
             {...provided.draggableProps}
@@ -31,22 +47,68 @@ export const TaskCard = ({ task, index }) => {
               </div>
             </div>
 
-            <p className="text-[14px]">Assigned By: {assignee}</p>
-            <p className="text-[14px]"> Type: Complete {type}</p>
-            <p className="text-[12px] border-2 w-fit px-[7px] rounded-2xl mt-[10px]">
-              <i className="fa-solid fa-list-check text-[12px]"></i> Default
-              Task List
+            <p className="text-[14px]">
+              {summary.length > 35 ? summary.substring(0, 35) + "..." : summary}
             </p>
-            <p className="text-[12px] border-2 w-fit px-[7px] rounded-2xl bg-gray-200 mt-[15px] dark:bg-dark-light">
-              {new Date(startDate).toLocaleDateString("en-us", {
-                year: "numeric",
-                month: "short",
-                day: "2-digit",
-              })}
-            </p>
+
+            <p className="text-[14px]">Assignee: {assignee}</p>
+            <p className="text-[14px]"> Type: {taskType}</p>
+
+            <div className="mt-[10px]">
+              <span className="text-[12px] border-2 w-fit px-[7px] rounded-2xl bg-gray-200 mr-[10px] dark:bg-dark-light">
+                <Event
+                  sx={{
+                    fontSize: "14px",
+                    marginRight: "5px",
+                    marginTop: "-2px",
+                  }}
+                />
+                {new Date(startDate).toLocaleDateString("en-us", {
+                  year: "numeric",
+                  month: "short",
+                  day: "2-digit",
+                })}
+              </span>
+
+              <span className="text-[12px] border-2 w-fit px-[7px] rounded-2xl bg-gray-200  dark:bg-dark-light">
+                <HourglassBottom
+                  sx={{
+                    fontSize: "14px",
+                    marginRight: "5px",
+                    marginTop: "-2px",
+                  }}
+                />
+                {new Date(endDate).toLocaleDateString("en-us", {
+                  year: "numeric",
+                  month: "short",
+                  day: "2-digit",
+                })}
+              </span>
+            </div>
+
+            <div
+              className="mt-[10px] text-right"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setShowModal(true)}
+                className="cursor-pointer"
+              >
+                <EditNote />
+              </button>
+              <button
+                onClick={() => deleteTask(_id)}
+                className="cursor-pointer"
+              >
+                <Delete sx={{ fontSize: "20px", marginLeft: "15px" }} />
+              </button>
+            </div>
           </div>
         )}
       </Draggable>
+      <Modal open={showModal} onClose={() => setShowModal(false)}>
+        <TaskModal task={task} setShowModal={setShowModal} />
+      </Modal>
     </>
   );
 };
