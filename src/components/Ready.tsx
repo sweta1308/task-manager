@@ -1,11 +1,13 @@
 import { Droppable } from "react-beautiful-dnd";
 import { useStatus } from "../context/statusContext";
 import { TaskCard } from "./TaskCard";
+import { TaskProps } from "../context/types/taskContext.types";
+import React from "react";
 
-export const Progress = () => {
-  const { statusProgress } = useStatus();
+export const Ready = () => {
+  const { statusReady } = useStatus();
   return (
-    <Droppable droppableId="In Progress">
+    <Droppable droppableId="Ready">
       {(provided, snapshot) => (
         <div
           className={`w-[350px] xs:w-[300px] ${
@@ -14,18 +16,20 @@ export const Progress = () => {
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
-          <h2 className="border-b-4 border-yellow-400 text-left pb-[15px] font-bold">
-            IN PROGRESS{" "}
+          <h2 className="border-b-4 border-gray-400 text-left pb-[15px] font-bold">
+            READY{" "}
             <span className="text-gray-500 text-[12px] ">
-              ({statusProgress?.length})
+              ({statusReady?.length})
             </span>
           </h2>
 
-          {statusProgress?.length === 0 && <h1 className="font-bold text-[20px] mt-[20px]">No tasks added.</h1>}
+          {statusReady?.length === 0 && (
+            <h1 className="font-bold text-[20px] mt-[20px]">No tasks added.</h1>
+          )}
 
-          {statusProgress?.map((progress, index) => (
-            <div key={progress?.id}>
-              <TaskCard task={progress} index={index} />
+          {statusReady?.map((ready: TaskProps, index: number) => (
+            <div key={ready?._id}>
+              <TaskCard task={ready} index={index} />
             </div>
           ))}
           {provided.placeholder}

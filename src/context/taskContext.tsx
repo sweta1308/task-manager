@@ -1,12 +1,19 @@
 import axios from "axios";
+import React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
+import {
+  FilterProps,
+  TaskContextProps,
+  TaskProps,
+  TaskProviderProps,
+} from "./types/taskContext.types";
 
-const TaskContext = createContext();
+const TaskContext = createContext<TaskContextProps>(undefined!);
 
-export const TaskProvider = ({ children }) => {
-  const [tasks, setTasks] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [filters, setFilters] = useState({
+export const TaskProvider: React.FC<TaskProviderProps> = ({ children }) => {
+  const [tasks, setTasks] = useState<TaskProps[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [filters, setFilters] = useState<FilterProps>({
     searchInput: "",
     priority: "",
     selectedTime: "",
@@ -28,7 +35,7 @@ export const TaskProvider = ({ children }) => {
     }
   };
 
-  const addTask = async (taskData) => {
+  const addTask = async (taskData: TaskProps) => {
     try {
       const response = await axios.post(
         "https://task-manager-nodejs-restapi.onrender.com/tasks",
@@ -42,7 +49,7 @@ export const TaskProvider = ({ children }) => {
     }
   };
 
-  const updateTask = async (taskId, updatedData) => {
+  const updateTask = async (taskId: string, updatedData: TaskProps) => {
     try {
       const { data, status } = await axios.post(
         `https://task-manager-nodejs-restapi.onrender.com/tasks/${taskId}`,
@@ -59,7 +66,7 @@ export const TaskProvider = ({ children }) => {
     }
   };
 
-  const deleteTask = async (taskId) => {
+  const deleteTask = async (taskId: string) => {
     try {
       const response = await axios.delete(
         `https://task-manager-nodejs-restapi.onrender.com/tasks/${taskId}`
@@ -79,11 +86,11 @@ export const TaskProvider = ({ children }) => {
       data?.name
         ?.trim()
         ?.toLowerCase()
-        ?.includes(searchInput?.trim()?.toLowerCase()) ||
+        ?.includes(searchInput!?.trim()?.toLowerCase()) ||
       data?.assignee
         ?.trim()
         ?.toLowerCase()
-        ?.includes(searchInput?.trim()?.toLowerCase())
+        ?.includes(searchInput!?.trim()?.toLowerCase())
   );
 
   if (priority === "High") {

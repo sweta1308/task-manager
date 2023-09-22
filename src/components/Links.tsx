@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 
 export const Links = () => {
-  const getStyles = ({ isActive }) => ({
+  const getStyles = ({ isActive }: { isActive: boolean }) => ({
     borderBottom: isActive ? "5px solid #10b981" : "",
     fontWeight: isActive ? "600" : "",
   });

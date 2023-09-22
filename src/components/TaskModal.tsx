@@ -1,18 +1,22 @@
-import { useState } from "react";
+import { CSSProperties, SetStateAction, useState } from "react";
 import { useTask } from "../context/taskContext";
+import { TaskProps } from "../context/types/taskContext.types";
 
-export const TaskModal = ({ task, setShowModal }) => {
+type TaskModalProps = {
+  task?: TaskProps;
+  setShowModal: React.Dispatch<SetStateAction<boolean>>;
+};
+
+export const TaskModal: React.FC<TaskModalProps> = ({ task, setShowModal }) => {
   const { updateTask, addTask } = useTask();
-  const styles = {
+  const styles: CSSProperties = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    bgcolor: "background.paper",
-    boxShadow: 24,
-    p: 4,
   };
-  const [taskInput, setTaskInput] = useState(
+
+  const [taskInput, setTaskInput] = useState<TaskProps>(
     task || {
       name: "",
       summary: "",
@@ -25,12 +29,12 @@ export const TaskModal = ({ task, setShowModal }) => {
     }
   );
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (task) {
-      updateTask(task._id, taskInput);
+      updateTask?.(task._id!, taskInput);
     } else {
-      addTask(taskInput);
+      addTask?.(taskInput);
     }
     setTaskInput({
       name: "",

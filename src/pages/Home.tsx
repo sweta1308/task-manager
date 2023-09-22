@@ -24,9 +24,9 @@ export const Home = () => {
         <div className="bg-gray-200 px-[40px] pb-[50px] text-center sm:px-[10px] dark:bg-dark-light">
           <Options />
           {isLoading ? (
-            <ScaleLoader size={30} color="#10b981" />
+            <ScaleLoader color="#10b981" />
           ) : (
-            <DragDropContext onDragEnd={onDragEnd}>
+            <DragDropContext onDragEnd={onDragEnd!}>
               <div className="flex w-full justify-between flex-wrap md:justify-center">
                 <Ready />
                 <Progress />

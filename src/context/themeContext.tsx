@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { createContext, useContext } from "react";
+import { ThemeContextProps, ThemeProviderProps } from "./types/themeContext.types";
 
-const ThemeContext = createContext();
+const ThemeContext = createContext<ThemeContextProps>(undefined!);
 
-export const ThemeProvider = ({ children }) => {
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const [isDark, setIsDark] = useState(
     localStorage.getItem("mode") === "dark" ? true : false
   );

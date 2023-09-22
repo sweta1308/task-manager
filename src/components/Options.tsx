@@ -6,8 +6,7 @@ import { TaskModal } from "./TaskModal";
 
 export const Options = () => {
   const { filters, setFilters } = useTask();
-  const { selectedTime, priority } = filters;
-  const [showTaskModal, setShowTaskModal] = useState(false);
+  const [showTaskModal, setShowTaskModal] = useState<boolean>(false);
   return (
     <>
       <div className="flex justify-end py-[20px] xs:flex-col">
@@ -19,9 +18,9 @@ export const Options = () => {
         </button>
         <input
           type="date"
-          value={selectedTime}
+          value={filters!.selectedTime}
           onChange={(e) =>
-            setFilters({ ...filters, selectedTime: e.target.value })
+            setFilters?.({ ...filters, selectedTime: e.target.value })
           }
           className="py-[5px] px-[10px] mr-[10px] outline-none dark:bg-dark-mode xs:my-[10px] xs:mr-0 xs:py-[8px]"
         />
@@ -29,9 +28,9 @@ export const Options = () => {
         <div className="flex md:flex-col md:w-fit text-[14px]">
           <select
             className="px-[10px] md:py-[10px] cursor-pointer dark:bg-dark-mode xs:w-full"
-            value={priority}
+            value={filters!.priority}
             onChange={(e) =>
-              setFilters({ ...filters, priority: e.target.value })
+              setFilters?.({ ...filters, priority: e.target.value })
             }
           >
             <option value="">Select for Priority</option>

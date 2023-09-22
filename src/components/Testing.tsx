@@ -1,6 +1,7 @@
 import { Droppable } from "react-beautiful-dnd";
 import { useStatus } from "../context/statusContext";
 import { TaskCard } from "./TaskCard";
+import { TaskProps } from "../context/types/taskContext.types";
 
 export const Testing = () => {
   const { statusTesting } = useStatus();
@@ -25,8 +26,8 @@ export const Testing = () => {
             <h1 className="font-bold text-[20px] mt-[20px]">No tasks added.</h1>
           )}
 
-          {statusTesting?.map((testing, index) => (
-            <div key={testing?.id}>
+          {statusTesting?.map((testing: TaskProps, index: number) => (
+            <div key={testing?._id}>
               <TaskCard task={testing} index={index} />
             </div>
           ))}

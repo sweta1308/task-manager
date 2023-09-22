@@ -1,6 +1,7 @@
 import { Bar } from "react-chartjs-2";
 import { CategoryScale, Chart, LinearScale, BarElement } from "chart.js";
 import { useStatus } from "../context/statusContext";
+import { TaskProps } from "../context/types/taskContext.types";
 
 Chart.register(CategoryScale, LinearScale, BarElement);
 
@@ -51,19 +52,23 @@ export const BarChart = () => {
                 label: "High",
                 data: [
                   statusReady?.reduce(
-                    (acc, curr) => (curr.priority === "High" ? acc + 1 : acc),
+                    (acc: number, curr: TaskProps) =>
+                      curr.priority === "High" ? acc + 1 : acc,
                     0
                   ),
                   statusProgress?.reduce(
-                    (acc, curr) => (curr.priority === "High" ? acc + 1 : acc),
+                    (acc: number, curr: TaskProps) =>
+                      curr.priority === "High" ? acc + 1 : acc,
                     0
                   ),
                   statusTesting?.reduce(
-                    (acc, curr) => (curr.priority === "High" ? acc + 1 : acc),
+                    (acc: number, curr: TaskProps) =>
+                      curr.priority === "High" ? acc + 1 : acc,
                     0
                   ),
                   statusDone?.reduce(
-                    (acc, curr) => (curr.priority === "High" ? acc + 1 : acc),
+                    (acc: number, curr: TaskProps) =>
+                      curr.priority === "High" ? acc + 1 : acc,
                     0
                   ),
                 ],
@@ -75,19 +80,23 @@ export const BarChart = () => {
                 label: "Medium",
                 data: [
                   statusReady?.reduce(
-                    (acc, curr) => (curr.priority === "Medium" ? acc + 1 : acc),
+                    (acc: number, curr: TaskProps) =>
+                      curr.priority === "Medium" ? acc + 1 : acc,
                     0
                   ),
                   statusProgress?.reduce(
-                    (acc, curr) => (curr.priority === "Medium" ? acc + 1 : acc),
+                    (acc: number, curr: TaskProps) =>
+                      curr.priority === "Medium" ? acc + 1 : acc,
                     0
                   ),
                   statusTesting?.reduce(
-                    (acc, curr) => (curr.priority === "Medium" ? acc + 1 : acc),
+                    (acc: number, curr: TaskProps) =>
+                      curr.priority === "Medium" ? acc + 1 : acc,
                     0
                   ),
                   statusDone?.reduce(
-                    (acc, curr) => (curr.priority === "Medium" ? acc + 1 : acc),
+                    (acc: number, curr: TaskProps) =>
+                      curr.priority === "Medium" ? acc + 1 : acc,
                     0
                   ),
                 ],
@@ -99,19 +108,23 @@ export const BarChart = () => {
                 label: "Low",
                 data: [
                   statusReady?.reduce(
-                    (acc, curr) => (curr.priority === "Low" ? acc + 1 : acc),
+                    (acc: number, curr: TaskProps) =>
+                      curr.priority === "Low" ? acc + 1 : acc,
                     0
                   ),
                   statusProgress?.reduce(
-                    (acc, curr) => (curr.priority === "Low" ? acc + 1 : acc),
+                    (acc: number, curr: TaskProps) =>
+                      curr.priority === "Low" ? acc + 1 : acc,
                     0
                   ),
                   statusTesting?.reduce(
-                    (acc, curr) => (curr.priority === "Low" ? acc + 1 : acc),
+                    (acc: number, curr: TaskProps) =>
+                      curr.priority === "Low" ? acc + 1 : acc,
                     0
                   ),
                   statusDone?.reduce(
-                    (acc, curr) => (curr.priority === "Low" ? acc + 1 : acc),
+                    (acc: number, curr: TaskProps) =>
+                      curr.priority === "Low" ? acc + 1 : acc,
                     0
                   ),
                 ],

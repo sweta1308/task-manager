@@ -7,7 +7,7 @@ import { TaskProvider } from "./context/taskContext";
 import { StatusProvider } from "./context/statusContext";
 import { ThemeProvider } from "./context/themeContext";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
   // <React.StrictMode>
   <BrowserRouter>

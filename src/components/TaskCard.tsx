@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { Delete, EditNote, Event, HourglassBottom } from "@mui/icons-material";
-import { useTask } from "../context/taskContext";
 import { Modal } from "@mui/material";
 import { TaskModal } from "./TaskModal";
+import { TaskProps } from "../context/types/taskContext.types";
+import { useTask } from "../context/taskContext";
 
-export const TaskCard = ({ task, index }) => {
+type TaskcardProps = {
+  task: TaskProps;
+  index: number;
+};
+
+export const TaskCard: React.FC<TaskcardProps> = ({ task, index }) => {
   const {
     _id,
     name,
@@ -20,7 +26,7 @@ export const TaskCard = ({ task, index }) => {
   const [showModal, setShowModal] = useState(false);
   return (
     <>
-      <Draggable draggableId={_id} index={index}>
+      <Draggable draggableId={_id!} index={index}>
         {(provided, snapshot) => (
           <div
             {...provided.draggableProps}
@@ -48,7 +54,9 @@ export const TaskCard = ({ task, index }) => {
             </div>
 
             <p className="text-[14px]">
-              {summary.length > 35 ? summary.substring(0, 35) + "..." : summary}
+              {summary && summary.length > 35
+                ? summary.substring(0, 35) + "..."
+                : summary}
             </p>
 
             <p className="text-[14px]">Assignee: {assignee}</p>
@@ -63,7 +71,7 @@ export const TaskCard = ({ task, index }) => {
                     marginTop: "-2px",
                   }}
                 />
-                {new Date(startDate).toLocaleDateString("en-us", {
+                {new Date(startDate!).toLocaleDateString("en-us", {
                   year: "numeric",
                   month: "short",
                   day: "2-digit",
@@ -78,7 +86,7 @@ export const TaskCard = ({ task, index }) => {
                     marginTop: "-2px",
                   }}
                 />
-                {new Date(endDate).toLocaleDateString("en-us", {
+                {new Date(endDate!).toLocaleDateString("en-us", {
                   year: "numeric",
                   month: "short",
                   day: "2-digit",
@@ -97,7 +105,7 @@ export const TaskCard = ({ task, index }) => {
                 <EditNote />
               </button>
               <button
-                onClick={() => deleteTask(_id)}
+                onClick={() => deleteTask?.(_id!)}
                 className="cursor-pointer"
               >
                 <Delete sx={{ fontSize: "20px", marginLeft: "15px" }} />
